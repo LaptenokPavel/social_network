@@ -4,7 +4,7 @@ import Header from './components/Header/Header';
 import NavBar from "./components/NavBar/NavBar";
 import Profile from "./components/Profile/Profile";
 
-
+//some comment
 
 const App = () => {
     return (

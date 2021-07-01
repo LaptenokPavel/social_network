@@ -7,9 +7,9 @@ type ProfilePropsType = {
 }
 const Profile: React.FC<ProfilePropsType> = (props) => {
     return (
-        <div className={s.content}>
+        <div >
             <div>
-                <img src="https://klike.net/uploads/posts/2019-01/1547366815_1.jpg" alt=""/>
+                <img className={s.img} src="https://klike.net/uploads/posts/2019-01/1547366815_1.jpg" alt=""/>
             </div>
             <div>
                 Ava + discription

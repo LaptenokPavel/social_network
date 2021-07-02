@@ -1,6 +1,6 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import s from './Dialogs.module.css'
-
 type DialogsPropsType = {
     title: string
 }
@@ -11,16 +11,16 @@ const Dialogs: React.FC<DialogsPropsType> = () => {
             <div className={s.dialogs_item}>
 
                 <div className={` ${s.dialog} ${s.active}`}>
-                    Pasha
+                    <NavLink to = '/dialogs/1'>Pasha</NavLink>
                 </div>
                 <div className={s.dialog}>
-                    Dimych
+                    <NavLink to = '/dialogs/2'>Dimych</NavLink>
                 </div>
                 <div className={s.dialog}>
-                    Victor
+                    <NavLink to = '/dialogs/3'>Victor</NavLink>
                 </div>
                 <div className={s.dialog}>
-                    Valera
+                    <NavLink to = '/dialogs/4'>Valera</NavLink>
                 </div>
 
 

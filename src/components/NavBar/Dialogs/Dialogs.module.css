@@ -10,12 +10,13 @@
 padding: 10px;
 
 }
-.dialogs_item .active{
+.dialog .active{
     color:gold;
 }
 
 
 .dialog {
+    color:red;
 
 
 }

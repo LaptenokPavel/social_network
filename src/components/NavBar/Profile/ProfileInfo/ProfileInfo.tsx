@@ -1,21 +1,21 @@
 import React from "react";
-import s from './Profile.module.css';
-import MyPosts from "./MyPosts/MyPosts";
+import s from './ProfileInfo.module.css';
 
-type ProfilePropsType = {
+
+type ProfileInfoPropsType = {
     title: string
 }
-const Profile: React.FC<ProfilePropsType> = (props) => {
+const ProfileInfo = (props: ProfileInfoPropsType) => {
     return (
         <div >
             <div>
                 <img className={s.img} src="https://klike.net/uploads/posts/2019-01/1547366815_1.jpg" alt=""/>
             </div>
-            <div>
+            <div className={s.discription}>
                 Ava + discription
             </div>
-            <MyPosts title={""}/>
+
         </div>
     )
 }
-export default Profile;
+export default ProfileInfo;

@@ -1,11 +1,13 @@
 import React from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
+import {posts} from "../../../index";
+import {ProfilePropsType} from "../Profile";
 
-type MyPostsPropsType = {
-    title: string
-}
-const MyPosts: React.FC<MyPostsPropsType> = (props) => {
+const MyPosts = (props: ProfilePropsType) => {
+
+      let postsDataElement = (props.value).map((p)=>(<Post id={p.id} message={p.message} likes={p.likes} />))
+
     return (
 
         <div className={s.post}>
@@ -18,8 +20,7 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
             </div>
             <div className={s.posts}>New post</div>
             <div className={s.postr}>
-                <Post message={"Hi, How are you?"} likes={15}/>
-                <Post message={"It's my first post!"} likes={20}/>
+                {postsDataElement}
             </div>
         </div>
 

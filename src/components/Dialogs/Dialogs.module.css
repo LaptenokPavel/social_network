@@ -16,9 +16,15 @@ padding: 10px;
 
 
 .dialog {
-    color:red;
+    display: grid;
+    grid-template-columns: 2fr 10fr;
 
 
+}
+.avatar{
+   width: 20px;
+    height:20px;
+    padding-right:5px;
 }
 
 .messages {

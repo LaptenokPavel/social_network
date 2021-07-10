@@ -4,10 +4,10 @@ import s from './ProfileInfo.module.css';
 
 
 type ProfileInfoPropsType = {
-    title: any
-
+    title: string
 }
-const ProfileInfo = (props: ProfileInfoPropsType) => {
+
+function ProfileInfo (props: ProfileInfoPropsType) {
     return (
         <div >
             <div>

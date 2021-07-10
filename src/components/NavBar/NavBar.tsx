@@ -28,6 +28,11 @@ const Nav: React.FC<NavPropsType> = (props) => {
             <div className={s.item}>
                 <NavLink to={'/settings'}activeClassName={s.activeLink}>Settings</NavLink>
             </div>
+            <div className={`${s.item} ${s.satebar}`}>
+                <NavLink to={'/satebar'}activeClassName={s.activeLink}>SateBar</NavLink>
+                <h3>Friends</h3>
+
+            </div>
         </nav>
     )
 }

@@ -1,15 +1,15 @@
 import React from "react";
 import s from './Post.module.css';
 
-type MyPostsPropsType  = {
+
+
+type PostsType = {
     id: number
     message: string
     likes: number
-
 };
 
-
-const Post = (props:MyPostsPropsType) => {
+const Post = (props:PostsType) => {
     return (
 
                 <div className={s.item}>

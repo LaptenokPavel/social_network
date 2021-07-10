@@ -1,12 +1,16 @@
 import React from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {posts} from "../../../index";
-import {ProfilePropsType} from "../Profile";
+import {PostsType, ProfilePageType, RootStateType} from "../../../redux/state";
 
-const MyPosts = (props: ProfilePropsType) => {
 
-      let postsDataElement = (props.value).map((p)=>(<Post id={p.id} message={p.message} likes={p.likes} />))
+type MyPostsPageType ={
+    valuePosts: Array<PostsType>
+}
+
+function MyPosts (props: MyPostsPageType) {
+
+      let postsDataElement = (props.valuePosts).map((p)=>(<Post id={p.id} message={p.message} likes={p.likes} />))
 
     return (
 

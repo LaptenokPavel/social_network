@@ -4,22 +4,28 @@ import Post from "./Post/Post";
 import {PostsType, ProfilePageType, RootStateType} from "../../../redux/state";
 
 
-type MyPostsPageType ={
+type MyPostsPageType = {
     valuePosts: Array<PostsType>
 }
 
-function MyPosts (props: MyPostsPageType) {
+function MyPosts(props: MyPostsPageType) {
 
-      let postsDataElement = (props.valuePosts).map((p)=>(<Post id={p.id} message={p.message} likes={p.likes} />))
+    let postsDataElement = (props.valuePosts).map((p) =>
+        (<Post id={p.id} message={p.message} likes={p.likes}/>));
+    let newPostElement = React.createRef<HTMLTextAreaElement>();
+    const addPost = () => {
+        let text = newPostElement.current?.value;
+        alert(text)
+    };
 
     return (
 
         <div className={s.post}>
             <h3>My posts</h3>
             <div>
-                <div><textarea></textarea></div>
+                <div><textarea ref={newPostElement}></textarea></div>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={addPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>New post</div>
@@ -30,4 +36,5 @@ function MyPosts (props: MyPostsPageType) {
 
     )
 }
+
 export default MyPosts;

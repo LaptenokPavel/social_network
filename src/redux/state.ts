@@ -15,6 +15,14 @@ export type MessagesDataType = {
     message: string
 };
 
+export type SateBarPage = {
+    id: number
+    avatar: string
+    name: string
+};
+
+
+
 export type ProfilePageType = {
     posts: Array<PostsType>
 };
@@ -24,10 +32,15 @@ export type DialogsPageType = {
     messagesData: Array<MessagesDataType>
 };
 
+
+
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
-}
+    sateBar: SateBarPage[]
+   }
+
+
 
 let state: RootStateType = {
     profilePage: {
@@ -54,6 +67,17 @@ let state: RootStateType = {
             {id: 5, message: "Yo"},
         ]
     },
+
+    sateBar: [
+        {id:1, avatar: "picture", name: "Dimych"},
+        {id:2, avatar: "picture", name: "Victor"},
+        {id:3, avatar: "picture", name: "Valera"},
+
+    ]
+
+
 };
+
+
 
 export default state;

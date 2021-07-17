@@ -11,11 +11,15 @@ type DialogsProps = {
 };
 
 
-function Dialogs (props: DialogsProps) {
+function Dialogs(props: DialogsProps) {
 
-    let dialogsDataElement = (props.valueDialogs).map((d) => (<DialogItems name={d.name} id={d.id}/>))
-    let messagesDataElement = (props.valueMessages).map((m) => (<Message message={m.message} id={m.id}/>))
+    let dialogsDataElement = (props.valueDialogs).map((d) => (<DialogItems name={d.name} id={d.id}/>));
+    let messagesDataElement = (props.valueMessages).map((m) => (<Message message={m.message} id={m.id}/>));
+    let newMessageElement = React.createRef<HTMLTextAreaElement>();
 
+    const addMessage = ()=>{
+        alert(newMessageElement.current?.value)
+    }
 
     return (
         <div className={s.dialogs}>
@@ -24,6 +28,10 @@ function Dialogs (props: DialogsProps) {
             </div>
             <div className={s.messages}>
                 {messagesDataElement}
+            </div>
+            <div className={s.textarea}>
+                <textarea ref={newMessageElement}></textarea>
+                <button onClick={addMessage}>Add message</button>
             </div>
         </div>
     )

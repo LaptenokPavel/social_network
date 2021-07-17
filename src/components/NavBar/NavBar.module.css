@@ -16,3 +16,17 @@
 .item.satebar{
     padding-top: 50px;
 }
+.friend{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.avatar{
+    width: 40px;
+    height: 40px;
+    background-color: orange;
+    border-radius: 40px;
+}
+.nik{
+    margin-top: 10px;
+}

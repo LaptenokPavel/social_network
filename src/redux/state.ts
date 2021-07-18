@@ -22,7 +22,6 @@ export type SateBarPage = {
 };
 
 
-
 export type ProfilePageType = {
     posts: Array<PostsType>
 };
@@ -33,13 +32,11 @@ export type DialogsPageType = {
 };
 
 
-
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sateBar: SateBarPage[]
-   }
-
+}
 
 
 let state: RootStateType = {
@@ -69,15 +66,18 @@ let state: RootStateType = {
     },
 
     sateBar: [
-        {id:1, avatar: "picture", name: "Dimych"},
-        {id:2, avatar: "picture", name: "Victor"},
-        {id:3, avatar: "picture", name: "Valera"},
+        {id: 1, avatar: "picture", name: "Dimych"},
+        {id: 2, avatar: "picture", name: "Victor"},
+        {id: 3, avatar: "picture", name: "Valera"},
 
     ]
 
 
 };
 
-
+export let addPost = (postMessage) => {
+    let newPost = {id: 3, message: postMessage, likes: 0,}
+    state.profilePage.posts.push(newPost)
+};
 
 export default state;

@@ -12,6 +12,7 @@ function MyPosts(props: MyPostsPageType) {
 
     let postsDataElement = (props.valuePosts).map((p) =>
         (<Post id={p.id} message={p.message} likes={p.likes}/>));
+
     let newPostElement = React.createRef<HTMLTextAreaElement>();
     const addPost = () => {
         let text = newPostElement.current?.value;

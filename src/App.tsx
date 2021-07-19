@@ -13,6 +13,7 @@ import SateBar from "./components/SateBar/SateBar";
 
 type app = {
     appState: RootStateType
+    addPost:(postMessage:string)=>void
 
 }
 
@@ -22,10 +23,12 @@ function App(props: app) {
             <Header title={""}/>
             <NavBar valueSateBar={props.appState.sateBar}/>
             <div className={"app-wrapper-content"}>
-                <Route path='/profile' render={() => <Profile valuePosts={props.appState.profilePage.posts}/>}/>
+                <Route path='/profile' render={() => <Profile valuePosts={props.appState.profilePage.posts}
+                                                              addPost={props.addPost}/>}
+                />
                 <Route path='/dialogs' render={() => <Dialogs valueDialogs={props.appState.dialogsPage.dialogs}
-                                                              valueMessages={props.appState.dialogsPage.messagesData}/>}/>
-
+                                                              valueMessages={props.appState.dialogsPage.messagesData}/>}
+                />
                 <Route path='/news' component={News}/>
                 <Route path='/music' component={Music}/>
                 <Route path='/settings' component={Settings}/>

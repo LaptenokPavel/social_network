@@ -6,6 +6,7 @@ import {PostsType, ProfilePageType, RootStateType} from "../../../redux/state";
 
 type MyPostsPageType = {
     valuePosts: Array<PostsType>
+    addPost:(postMessage:string)=>void
 }
 
 function MyPosts(props: MyPostsPageType) {
@@ -15,10 +16,14 @@ function MyPosts(props: MyPostsPageType) {
 
     let newPostElement = React.createRef<HTMLTextAreaElement>();
     const addPost = () => {
-        let text = newPostElement.current?.value;
-        alert(text)
-    };
-
+        let text = newPostElement.current ? newPostElement.current.value : ''
+        props.addPost(text)
+        {
+            if (newPostElement.current) {
+                newPostElement.current.value = ''
+            }
+        }
+    }
     return (
 
         <div className={s.post}>

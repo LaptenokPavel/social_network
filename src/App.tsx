@@ -8,13 +8,15 @@ import {Route} from 'react-router-dom';
 import News from "./components/NavBar/News/News";
 import Music from "./components/NavBar/Music/Music";
 import Settings from "./components/NavBar/Settings/Settings";
-import {RootStateType} from './redux/state'
+import {addMessage, RootStateType, updateNewMessage, updateNewPostText} from './redux/state'
 import SateBar from "./components/SateBar/SateBar";
 
 type app = {
     appState: RootStateType
-    addPost:(postMessage:string)=>void
-
+    addPost: (newText: string) => void
+    updateNewPostText: (newText: string) => void
+    addMessage:(newMessage: string) => void
+    updateNewMessage:(newMessage: string) => void
 }
 
 function App(props: app) {
@@ -24,10 +26,18 @@ function App(props: app) {
             <NavBar valueSateBar={props.appState.sateBar}/>
             <div className={"app-wrapper-content"}>
                 <Route path='/profile' render={() => <Profile valuePosts={props.appState.profilePage.posts}
-                                                              addPost={props.addPost}/>}
+                                                              newMessage={props.appState.profilePage.newPostText}
+                                                              addPost={props.addPost}
+                                                              updateNewPostText={props.updateNewPostText}
+                />
+                }
                 />
                 <Route path='/dialogs' render={() => <Dialogs valueDialogs={props.appState.dialogsPage.dialogs}
-                                                              valueMessages={props.appState.dialogsPage.messagesData}/>}
+                                                              valueMessages={props.appState.dialogsPage.messagesData}
+                                                              newMessage={props.appState.dialogsPage.newMessage}
+                                                              addMessage={props.addMessage}
+                                                              updateNewMessage={props.updateNewMessage}
+                />}
                 />
                 <Route path='/news' component={News}/>
                 <Route path='/music' component={Music}/>

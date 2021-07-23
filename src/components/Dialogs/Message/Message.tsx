@@ -4,6 +4,7 @@ import React from "react";
 type MessagesDataType = {
     id: number
     message: string
+
 };
 
 

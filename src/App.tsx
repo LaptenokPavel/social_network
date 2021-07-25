@@ -8,7 +8,7 @@ import {Route} from 'react-router-dom';
 import News from "./components/NavBar/News/News";
 import Music from "./components/NavBar/Music/Music";
 import Settings from "./components/NavBar/Settings/Settings";
-import {addMessage, RootStateType, updateNewMessage, updateNewPostText} from './redux/state'
+import {RootStateType} from './redux/state'
 import SateBar from "./components/SateBar/SateBar";
 
 type app = {

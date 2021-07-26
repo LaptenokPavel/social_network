@@ -82,6 +82,7 @@ let state: RootStateType = {
     ]
 };
 
+
 export let addPost = () => {
     let newPost: PostsType = {
         id: 3,

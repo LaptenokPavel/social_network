@@ -1,3 +1,5 @@
+import {ChangeEvent} from "react";
+
 export type PostsType = {
     id: number
     message: string
@@ -43,21 +45,21 @@ export type RootStateType = {
 
 type updateNewMessage = {
     type: 'UPDATE-NEW-MESSAGE'
-    newMessage:string
+    newMessage: string
 }
 type addMessage = {
     type: 'ADD-MESSAGE'
-    newMessage:string
+    newMessage: string
 }
 type updateNewPostText = {
     type: 'UPDATE-NEW-POST-TEXT'
-    newText:string
+    newText: string
 }
 type addPost = {
     type: 'ADD-POST'
-    }
+}
 
-   export type ActionsTypes = updateNewMessage | addMessage | updateNewPostText | addPost
+export type ActionsTypes = updateNewMessage | addMessage | updateNewPostText | addPost
 
 export type storeType = {
     _state: RootStateType
@@ -139,6 +141,39 @@ let store: storeType = {
         }
     },
 
+}
+
+
+export const addPostActionCreator = (newMessage: string): addMessage => {
+    return (
+        {
+            type: "ADD-MESSAGE",
+            newMessage: newMessage
+        }
+    )
+}
+export const newMessageTextActionCreator = (message: string): updateNewMessage => {
+    return (
+        {
+            type: 'UPDATE-NEW-MESSAGE',
+            newMessage: message
+        }
+    )
+}
+export const addMyPostActionCreator = (): addPost => {
+    return (
+        {
+            type: 'ADD-POST'
+        }
+    )
+}
+export const newPostTextActionCreator = (post: string): updateNewPostText => {
+    return (
+        {
+            type: 'UPDATE-NEW-POST-TEXT',
+            newText: post
+        }
+    )
 }
 
 export default store;

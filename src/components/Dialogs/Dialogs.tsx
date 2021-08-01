@@ -2,13 +2,19 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItems} from "./DialogsItem/DialogItems";
 import {Message} from "./Message/Message";
-import {ActionsTypes, DialogsType, MessagesDataType} from "../../redux/state";
+import {
+    ActionsTypes,
+    addPostActionCreator,
+    DialogsType,
+    MessagesDataType,
+    newMessageTextActionCreator
+} from "../../redux/state";
 
 
 type DialogsProps = {
     valueDialogs: Array<DialogsType>
     valueMessages: Array<MessagesDataType>
-    dispatch: (action:ActionsTypes) => void
+    dispatch: (action: ActionsTypes) => void
     newMessage: string
 };
 
@@ -18,12 +24,14 @@ function Dialogs(props: DialogsProps) {
     let messagesDataElement = (props.valueMessages).map((m) => (<Message message={m.message} id={m.id}/>));
 
 
-    const addPost = () => {
-        props.dispatch({type:"ADD-MESSAGE", newMessage:props.newMessage})
-       }
 
-    const newMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({type:'UPDATE-NEW-MESSAGE', newMessage:e.currentTarget.value})
+    const addPost = () => {
+        props.dispatch(addPostActionCreator(props.newMessage))
+    }
+
+    const newMessageText = (newMessage: ChangeEvent<HTMLTextAreaElement>) => {
+        let message = newMessage.currentTarget.value
+        props.dispatch(newMessageTextActionCreator(message))
     }
 
     return (

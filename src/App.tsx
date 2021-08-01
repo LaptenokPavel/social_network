@@ -8,15 +8,12 @@ import {Route} from 'react-router-dom';
 import News from "./components/NavBar/News/News";
 import Music from "./components/NavBar/Music/Music";
 import Settings from "./components/NavBar/Settings/Settings";
-import {RootStateType} from './redux/state'
+import {ActionsTypes, RootStateType} from './redux/state'
 import SateBar from "./components/SateBar/SateBar";
 
 type app = {
     appState: RootStateType
-    addPost: (newText: string) => void
-    updateNewPostText: (newText: string) => void
-    addMessage:(newMessage: string) => void
-    updateNewMessage:(newMessage: string) => void
+    dispatch: (action:ActionsTypes) => void
 }
 
 function App(props: app) {
@@ -27,16 +24,14 @@ function App(props: app) {
             <div className={"app-wrapper-content"}>
                 <Route path='/profile' render={() => <Profile valuePosts={props.appState.profilePage.posts}
                                                               newMessage={props.appState.profilePage.newPostText}
-                                                              addPost={props.addPost}
-                                                              updateNewPostText={props.updateNewPostText}
+                                                              dispatch={props.dispatch}
                 />
                 }
                 />
                 <Route path='/dialogs' render={() => <Dialogs valueDialogs={props.appState.dialogsPage.dialogs}
                                                               valueMessages={props.appState.dialogsPage.messagesData}
                                                               newMessage={props.appState.dialogsPage.newMessage}
-                                                              addMessage={props.addMessage}
-                                                              updateNewMessage={props.updateNewMessage}
+                                                              dispatch={props.dispatch}
                 />}
                 />
                 <Route path='/news' component={News}/>

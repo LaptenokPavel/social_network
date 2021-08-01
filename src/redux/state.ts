@@ -1,4 +1,3 @@
-
 export type PostsType = {
     id: number
     message: string
@@ -42,18 +41,30 @@ export type RootStateType = {
     sateBar: SateBarPage[]
 }
 
+type updateNewMessage = {
+    type: 'UPDATE-NEW-MESSAGE'
+    newMessage:string
+}
+type addMessage = {
+    type: 'ADD-MESSAGE'
+    newMessage:string
+}
+type updateNewPostText = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText:string
+}
+type addPost = {
+    type: 'ADD-POST'
+    }
 
-
+   export type ActionsTypes = updateNewMessage | addMessage | updateNewPostText | addPost
 
 export type storeType = {
     _state: RootStateType
-    updateNewMessage: (newMessage: string) => void
-    addMessage:(newMessage: string) => void
-    updateNewPostText:(newText: string) => void
-    addPost:() => void
-    _onChange:() => void
-    subscribe:(observer: () => void) => void
-    getState:() => RootStateType
+    _onChange: () => void
+    subscribe: (observer: () => void) => void
+    getState: () => RootStateType
+    dispatch: (action: ActionsTypes) => void
 }
 
 let store: storeType = {
@@ -92,34 +103,6 @@ let store: storeType = {
 
         ]
     },
-
-    updateNewMessage(newMessage: string) {
-        this._state.dialogsPage.newMessage = newMessage
-        this._onChange()
-    },
-    addMessage(newMessage: string) {
-        let message: MessagesDataType = {
-            id: 1,
-            message: newMessage
-        }
-        this._state.dialogsPage.messagesData.push(message)
-        this._state.dialogsPage.newMessage = ''
-        this._onChange()
-    },
-    updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._onChange()
-    },
-    addPost() {
-        let newPost: PostsType = {
-            id: 3,
-            message: this._state.profilePage.newPostText,
-            likes: 0,
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._onChange()
-    },
     _onChange() {
         console.log('hello')
     },
@@ -127,8 +110,35 @@ let store: storeType = {
         this._onChange = observer
     },
     getState() {
-        return(this._state)
-    }
+        return (this._state)
+    },
+    dispatch(action) {
+        if (action.type === 'UPDATE-NEW-MESSAGE') {
+            this._state.dialogsPage.newMessage = action.newMessage
+            this._onChange()
+        } else if (action.type === 'ADD-MESSAGE') {
+            let message: MessagesDataType = {
+                id: 1,
+                message: action.newMessage
+            }
+            this._state.dialogsPage.messagesData.push(message)
+            this._state.dialogsPage.newMessage = ''
+            this._onChange()
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText
+            this._onChange()
+        } else if (action.type === 'ADD-POST') {
+            let newPost: PostsType = {
+                id: 3,
+                message: this._state.profilePage.newPostText,
+                likes: 0,
+            }
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = ''
+            this._onChange()
+        }
+    },
+
 }
 
 export default store;

@@ -1,4 +1,7 @@
 import {ChangeEvent} from "react";
+import dialogsReducer, {addMessage, updateNewMessage} from "./dialogs-reducer";
+import profileReducer, {addPost, updateNewPostText} from "./profile-reducer";
+import sateBarReducer from "./satebar-reducer";
 
 export type PostsType = {
     id: number
@@ -43,21 +46,8 @@ export type RootStateType = {
     sateBar: SateBarPage[]
 }
 
-type updateNewMessage = {
-    type: 'UPDATE-NEW-MESSAGE'
-    newMessage: string
-}
-type addMessage = {
-    type: 'ADD-MESSAGE'
-    newMessage: string
-}
-type updateNewPostText = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
-type addPost = {
-    type: 'ADD-POST'
-}
+
+
 
 export type ActionsTypes = updateNewMessage | addMessage | updateNewPostText | addPost
 
@@ -115,65 +105,17 @@ let store: storeType = {
         return (this._state)
     },
     dispatch(action) {
-        if (action.type === 'UPDATE-NEW-MESSAGE') {
-            this._state.dialogsPage.newMessage = action.newMessage
-            this._onChange()
-        } else if (action.type === 'ADD-MESSAGE') {
-            let message: MessagesDataType = {
-                id: 1,
-                message: action.newMessage
-            }
-            this._state.dialogsPage.messagesData.push(message)
-            this._state.dialogsPage.newMessage = ''
-            this._onChange()
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newText
-            this._onChange()
-        } else if (action.type === 'ADD-POST') {
-            let newPost: PostsType = {
-                id: 3,
-                message: this._state.profilePage.newPostText,
-                likes: 0,
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._onChange()
-        }
-    },
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.sateBar = sateBarReducer(this._state.sateBar, action)
+        this._onChange()
+    }
+
 
 }
 
 
-export const addPostActionCreator = (newMessage: string): addMessage => {
-    return (
-        {
-            type: "ADD-MESSAGE",
-            newMessage: newMessage
-        }
-    )
-}
-export const newMessageTextActionCreator = (message: string): updateNewMessage => {
-    return (
-        {
-            type: 'UPDATE-NEW-MESSAGE',
-            newMessage: message
-        }
-    )
-}
-export const addMyPostActionCreator = (): addPost => {
-    return (
-        {
-            type: 'ADD-POST'
-        }
-    )
-}
-export const newPostTextActionCreator = (post: string): updateNewPostText => {
-    return (
-        {
-            type: 'UPDATE-NEW-POST-TEXT',
-            newText: post
-        }
-    )
-}
+
+
 
 export default store;

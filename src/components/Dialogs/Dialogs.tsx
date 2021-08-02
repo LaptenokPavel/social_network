@@ -2,13 +2,9 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItems} from "./DialogsItem/DialogItems";
 import {Message} from "./Message/Message";
-import {
-    ActionsTypes,
-    addPostActionCreator,
-    DialogsType,
-    MessagesDataType,
-    newMessageTextActionCreator
+import {ActionsTypes, DialogsType, MessagesDataType,
 } from "../../redux/state";
+import {addPostActionCreator, newMessageTextActionCreator} from "../../redux/dialogs-reducer";
 
 
 type DialogsProps = {
@@ -43,8 +39,10 @@ function Dialogs(props: DialogsProps) {
                 {messagesDataElement}
             </div>
             <div className={s.textarea}>
-                <textarea onChange={newMessageText} value={props.newMessage}/>
-                <button onClick={addPost}>Add message</button>
+                <div><textarea onChange={newMessageText} value={props.newMessage}/></div>
+                <div>
+                    <button onClick={addPost}>Add message</button>
+                </div>
             </div>
         </div>
     )

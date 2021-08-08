@@ -1,13 +1,11 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import s from './NavBar.module.css';
-import {SateBarPage} from "../../redux/state";
+import {SateBarPage} from "../../redux/store";
 
 type SateBar = {
-    valueSateBar:SateBarPage[]
+    valueSateBar: SateBarPage[]
 }
-
-
 
 
 const Nav: React.FC<SateBar> = (props) => {
@@ -20,25 +18,25 @@ const Nav: React.FC<SateBar> = (props) => {
                 <NavLink to={'/dialogs'} activeClassName={s.activeLink}>Messages</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to={'/news'}activeClassName={s.activeLink}>News</NavLink>
+                <NavLink to={'/news'} activeClassName={s.activeLink}>News</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to={'/music'}activeClassName={s.activeLink}>Music</NavLink>
+                <NavLink to={'/music'} activeClassName={s.activeLink}>Music</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to={'/settings'}activeClassName={s.activeLink}>Settings</NavLink>
+                <NavLink to={'/settings'} activeClassName={s.activeLink}>Settings</NavLink>
             </div>
             <div className={`${s.item} ${s.satebar}`}>
-                <NavLink to={'/satebar'}activeClassName={s.activeLink}>SateBar</NavLink>
+                <NavLink to={'/satebar'} activeClassName={s.activeLink}>SateBar</NavLink>
                 <h3>Friends</h3>
 
-<div className={s.friend}>
-    {(props.valueSateBar).map((v)=>(<div>
-            <div className={s.avatar}></div>
-            <div className={s.nik}>{v.name}</div>
-        </div>
-        ))}
-    </div>
+                <div className={s.friend}>
+                    {(props.valueSateBar).map((v) => (<div>
+                            <div className={s.avatar}></div>
+                            <div className={s.nik}>{v.name}</div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </nav>
     )

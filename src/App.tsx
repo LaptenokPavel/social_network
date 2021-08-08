@@ -8,7 +8,7 @@ import {Route} from 'react-router-dom';
 import News from "./components/NavBar/News/News";
 import Music from "./components/NavBar/Music/Music";
 import Settings from "./components/NavBar/Settings/Settings";
-import {ActionsTypes, RootStateType} from './redux/state'
+import {ActionsTypes, RootStateType} from './redux/store'
 import SateBar from "./components/SateBar/SateBar";
 
 type app = {

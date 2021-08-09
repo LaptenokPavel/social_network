@@ -4,12 +4,14 @@ import profileReducer from "./profile-reducer";
 import sateBarReducer from "./satebar-reducer";
 import {storeType} from "./store";
 
+export type AppStateType = ReturnType<typeof reducers>
+
 
 
 let reducers = combineReducers({
-    dialogsReducer:dialogsReducer,
-    profileReducer:profileReducer,
-    sateBarReducer:sateBarReducer
+    dialogsPage:dialogsReducer,
+    profilePage:profileReducer,
+    sateBar:sateBarReducer
 })
 
 let store:storeType = createStore(reducers)

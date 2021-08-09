@@ -9,6 +9,7 @@ type SateBar = {
 
 
 const Nav: React.FC<SateBar> = (props) => {
+
     return (
         <nav className={s.nav}>
             <div className={s.item}>
@@ -31,7 +32,7 @@ const Nav: React.FC<SateBar> = (props) => {
                 <h3>Friends</h3>
 
                 <div className={s.friend}>
-                    {(props.valueSateBar).map((v) => (<div>
+                    {props.valueSateBar.map((v) => (<div>
                             <div className={s.avatar}></div>
                             <div className={s.nik}>{v.name}</div>
                         </div>

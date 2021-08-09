@@ -8,32 +8,25 @@ import {Route} from 'react-router-dom';
 import News from "./components/NavBar/News/News";
 import Music from "./components/NavBar/Music/Music";
 import Settings from "./components/NavBar/Settings/Settings";
-import {ActionsTypes, RootStateType} from './redux/store'
+import {storeType} from './redux/store'
 import SateBar from "./components/SateBar/SateBar";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+
 
 type app = {
-    appState: RootStateType
-    dispatch: (action:ActionsTypes) => void
+    store: storeType
 }
 
+
 function App(props: app) {
+
     return (
         <div className="app-wrapper">
             <Header title={""}/>
-            <NavBar valueSateBar={props.appState.sateBar}/>
+            <NavBar valueSateBar={props.store.getState().sateBar}/>
             <div className={"app-wrapper-content"}>
-                <Route path='/profile' render={() => <Profile valuePosts={props.appState.profilePage.posts}
-                                                              newMessage={props.appState.profilePage.newPostText}
-                                                              dispatch={props.dispatch}
-                />
-                }
-                />
-                <Route path='/dialogs' render={() => <Dialogs valueDialogs={props.appState.dialogsPage.dialogs}
-                                                              valueMessages={props.appState.dialogsPage.messagesData}
-                                                              newMessage={props.appState.dialogsPage.newMessage}
-                                                              dispatch={props.dispatch}
-                />}
-                />
+                <Route path='/profile' render={() => <Profile store={props.store}/>}/>
+                <Route path='/dialogs' render={() => <DialogsContainer store={props.store}/>}/>
                 <Route path='/news' component={News}/>
                 <Route path='/music' component={Music}/>
                 <Route path='/settings' component={Settings}/>

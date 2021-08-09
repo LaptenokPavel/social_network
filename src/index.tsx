@@ -9,9 +9,8 @@ import React from "react";
 let rerenderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
-            <App appState={store.getState()}
-                 dispatch={store.dispatch.bind(store)}
-                          />
+            <App store={store}
+            />
         </BrowserRouter>,
         document.getElementById('root'));
 }

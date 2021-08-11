@@ -1,4 +1,3 @@
-import {ChangeEvent} from "react";
 import dialogsReducer, {addMessage, updateNewMessage} from "./dialogs-reducer";
 import profileReducer, {addPost, updateNewPostText} from "./profile-reducer";
 import sateBarReducer from "./satebar-reducer";
@@ -10,13 +9,12 @@ export type PostsType = {
 };
 
 
-export type DialogsType = {
+type DialogsType = {
     id: number
     name: string
-
 };
 
-export type MessagesDataType = {
+type MessagesDataType = {
     id: number
     message: string
 };
@@ -32,8 +30,7 @@ export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
 };
-
-export type DialogsPageType = {
+type DialogsPageType = {
     dialogs: Array<DialogsType>
     messagesData: Array<MessagesDataType>
     newMessage: string
@@ -105,7 +102,7 @@ let store: storeType = {
         return (this._state)
     },
     dispatch(action) {
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+       // this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.sateBar = sateBarReducer(this._state.sateBar, action)
         this._onChange()

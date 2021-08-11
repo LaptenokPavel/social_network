@@ -1,5 +1,19 @@
-import {ActionsTypes, DialogsPageType, MessagesDataType} from "./store";
+export type DialogsPageType = {
+    dialogs: Array<DialogsType>
+    messagesData: Array<MessagesDataType>
+    newMessage: string
+}
 
+export type MessagesDataType = {
+    id: number
+    message: string
+}
+
+export type DialogsType = {
+    id: number
+    name: string
+}
+ type DialogsActionsTypes = updateNewMessage | addMessage
 
 export const unitialStateDialogsPage:DialogsPageType = {
     dialogs: [
@@ -21,18 +35,18 @@ export const unitialStateDialogsPage:DialogsPageType = {
     newMessage: "",
 }
 
-const dialogsReducer = (state: DialogsPageType = unitialStateDialogsPage, action: ActionsTypes) => {
+const dialogsReducer = (state: DialogsPageType = unitialStateDialogsPage, action: DialogsActionsTypes):DialogsPageType => {
     switch (action.type) {
         case'UPDATE-NEW-MESSAGE':
-            state.newMessage = action.newMessage
+            state.newMessage = action.message
             return state
         case 'ADD-MESSAGE':
-            let message: MessagesDataType = {
+            let messageNew: MessagesDataType = {
                 id: 1,
-                message: action.newMessage
+                message: state.newMessage
             }
-            state.messagesData.push(message)
-            state.newMessage = ''
+            state.messagesData.push(messageNew)
+
             return state
         default:
             return state
@@ -41,19 +55,18 @@ const dialogsReducer = (state: DialogsPageType = unitialStateDialogsPage, action
 export type addMessage = ReturnType<typeof addPostActionCreator>
 export type updateNewMessage = ReturnType<typeof newMessageTextActionCreator>
 
-export const addPostActionCreator = (newMessage: string) => {
+export const addPostActionCreator = () => {
     return (
         {
             type: "ADD-MESSAGE",
-            newMessage: newMessage
-        } as const
+                   } as const
     )
 }
 export const newMessageTextActionCreator = (message: string) => {
     return (
         {
             type: 'UPDATE-NEW-MESSAGE',
-            newMessage: message
+            message: message
         } as const
     )
 }

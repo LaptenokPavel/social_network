@@ -1,36 +1,45 @@
 import React from 'react';
-import {storeType,} from "../../redux/store";
-import {addPostActionCreator, newMessageTextActionCreator} from "../../redux/dialogs-reducer";
-import MyPosts from "../Profile/MyPosts/MyPosts";
+import {
+    addPostActionCreator, DialogsPageType, DialogsType, MessagesDataType,
+    newMessageTextActionCreator
+} from "../../redux/dialogs-reducer";
+import {connect} from "react-redux";
+import Dialogs from "./Dialogs";
+import {Dispatch} from "redux";
 
 
-type DialogsContainerProps = {
-    store: storeType
-};
+type MapStateToPropsType = {
+    valueDialogs: DialogsType[]
+    valueMessages: MessagesDataType[]
+    newMessage: string
+}
 
-function Dialogs(props: DialogsContainerProps) {
-    let state = props.store.getState().dialogsPage
+type MapDispatchToPropsType = {
+    addMessage: () => void
+    uppdateNewMessage: (message: string) => void
+}
 
-
-    const addPost = () => {
-        props.store.dispatch(addPostActionCreator(state.newMessage))
+let mapStateToProps = (state: DialogsPageType): MapStateToPropsType => {
+    return {
+        valueDialogs: state.dialogs,
+        valueMessages: state.messagesData,
+        newMessage: state.newMessage,
     }
-    const newMessageText = (message: string) => {
-        props.store.dispatch(newMessageTextActionCreator(message))
+}
+
+let mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
+    return {
+        addMessage: () => {
+            dispatch(addPostActionCreator())
+        },
+        uppdateNewMessage: (message: string) => {
+            dispatch(newMessageTextActionCreator(message))
+        }
     }
+}
 
-    return (
-        <MyPosts valueDialogs={state.dialogs}
-                 valueMessages={state.messagesData}
-                 newMessage={state.newMessage}
-                 addMessage={addPost}
-                 uppdateNewMessage={newMessageText}
+const Dialogscontainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 
-
-        />
-    )
-};
-
-export default Dialogs;
+export default Dialogscontainer;
 
 

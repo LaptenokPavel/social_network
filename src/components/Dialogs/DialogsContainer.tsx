@@ -6,6 +6,7 @@ import {
 import {connect} from "react-redux";
 import Dialogs from "./Dialogs";
 import {Dispatch} from "redux";
+import {AppStateType} from "../../redux/redux-store";
 
 
 type MapStateToPropsType = {
@@ -19,11 +20,12 @@ type MapDispatchToPropsType = {
     uppdateNewMessage: (message: string) => void
 }
 
-let mapStateToProps = (state: DialogsPageType): MapStateToPropsType => {
+let mapStateToProps = (state: AppStateType):
+    MapStateToPropsType => {
     return {
-        valueDialogs: state.dialogs,
-        valueMessages: state.messagesData,
-        newMessage: state.newMessage,
+        valueDialogs: state.dialogsPage.dialogs,
+        valueMessages: state.dialogsPage.messagesData,
+        newMessage: state.dialogsPage.newMessage,
     }
 }
 

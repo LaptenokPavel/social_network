@@ -2,12 +2,11 @@ import dialogsReducer, {addMessage, updateNewMessage} from "./dialogs-reducer";
 import profileReducer, {addPost, updateNewPostText} from "./profile-reducer";
 import sateBarReducer from "./satebar-reducer";
 
-export type PostsType = {
+type PostsType = {
     id: number
     message: string
     likes: number
 };
-
 
 type DialogsType = {
     id: number
@@ -19,17 +18,17 @@ type MessagesDataType = {
     message: string
 };
 
-export type SateBarPage = {
+type SateBarPage = {
     id: number
     avatar: string
     name: string
 };
 
-
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
 };
+
 type DialogsPageType = {
     dialogs: Array<DialogsType>
     messagesData: Array<MessagesDataType>
@@ -37,16 +36,14 @@ type DialogsPageType = {
 };
 
 
-export type RootStateType = {
+type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sateBar: SateBarPage[]
 }
 
 
-
-
-export type ActionsTypes = updateNewMessage | addMessage | updateNewPostText | addPost
+type ActionsTypes = updateNewMessage | addMessage | updateNewPostText | addPost
 
 export type storeType = {
     _state: RootStateType
@@ -56,7 +53,7 @@ export type storeType = {
     dispatch: (action: ActionsTypes) => void
 }
 
-let store: storeType = {
+export let store: storeType = {
     _state: {
         profilePage: {
             posts: [
@@ -102,11 +99,11 @@ let store: storeType = {
         return (this._state)
     },
     dispatch(action) {
-       // this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.sateBar = sateBarReducer(this._state.sateBar, action)
+       //this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        //this._state.profilePage = profileReducer(this._state.profilePage, action)
+       //this._state.sateBar = sateBarReducer(this._state.sateBar, action)
         this._onChange()
-    }
+     }
 
 
 }
@@ -115,4 +112,3 @@ let store: storeType = {
 
 
 
-export default store;

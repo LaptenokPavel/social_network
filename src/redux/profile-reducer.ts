@@ -1,4 +1,15 @@
-import {ActionsTypes, PostsType, ProfilePageType,} from "./store";
+export type PostsType = {
+    id: number
+    message: string
+    likes: number
+}
+
+export type ProfilePageType = {
+    posts: Array<PostsType>
+    newPostText: string
+}
+
+export type ProfileActionsTypes =  updateNewPostText | addPost
 
 
 export const unitialStateProfilePage:ProfilePageType = {
@@ -9,7 +20,7 @@ export const unitialStateProfilePage:ProfilePageType = {
     newPostText: "it-kamasutra"
 }
 
-const profileReducer = (state: ProfilePageType  = unitialStateProfilePage, action: ActionsTypes) => {
+const profileReducer = (state: ProfilePageType  = unitialStateProfilePage, action: ProfileActionsTypes) => {
     switch (action.type) {
         case 'UPDATE-NEW-POST-TEXT':
             state.newPostText = action.newText

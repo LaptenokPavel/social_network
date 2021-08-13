@@ -1,4 +1,10 @@
-import {ActionsTypes,  SateBarPage} from "./store";
+export type SateBarPage = {
+    id: number
+    avatar: string
+    name: string
+}
+
+type SateBarActionsTypes =  any
 
 export const unitialStateSateBarPage:SateBarPage[] =
     [
@@ -8,10 +14,11 @@ export const unitialStateSateBarPage:SateBarPage[] =
     ]
 
 
-const sateBarReducer = (state:SateBarPage[] = unitialStateSateBarPage , action: ActionsTypes) => {
+const sateBarReducer = (state:SateBarPage[] = unitialStateSateBarPage , action: SateBarActionsTypes) => {
 
 
     return state
 }
+
 
 export default sateBarReducer;

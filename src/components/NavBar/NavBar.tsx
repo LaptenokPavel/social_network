@@ -1,14 +1,12 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import s from './NavBar.module.css';
-import {SateBarPage} from "../../redux/store";
-
-type SateBar = {
-    valueSateBar: SateBarPage[]
-}
+//import {SateBarPage} from "../../redux/store";
 
 
-const Nav: React.FC<SateBar> = (props) => {
+
+
+const Nav = () => {
 
     return (
         <nav className={s.nav}>
@@ -31,13 +29,13 @@ const Nav: React.FC<SateBar> = (props) => {
                 <NavLink to={'/satebar'} activeClassName={s.activeLink}>SateBar</NavLink>
                 <h3>Friends</h3>
 
-                <div className={s.friend}>
-                    {props.valueSateBar.map((v) => (<div>
-                            <div className={s.avatar}></div>
-                            <div className={s.nik}>{v.name}</div>
-                        </div>
-                    ))}
-                </div>
+                {/*<div className={s.friend}>*/}
+                {/*    {props.valueSateBar.map((v) => (<div>*/}
+                {/*            <div className={s.avatar}></div>*/}
+                {/*            <div className={s.nik}>{v.name}</div>*/}
+                {/*        </div>*/}
+                {/*    ))}*/}
+                {/*</div>*/}
             </div>
         </nav>
     )

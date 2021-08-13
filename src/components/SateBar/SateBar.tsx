@@ -1,6 +1,6 @@
 import React from "react";
 import s from './SateBar.module.css';
-import {SateBarPage} from "../../redux/store";
+import {SateBarPage} from "../../redux/satebar-reducer";
 import {DialogItems} from "../Dialogs/DialogsItem/DialogItems";
 
 type SateBar = {

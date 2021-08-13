@@ -4,11 +4,11 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {storeType} from "../../redux/store";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
-type ProfileProps = {
-    store:storeType
-}
+// type ProfileProps = {
+//     store:storeType
+// }
 
-function Profile(props: ProfileProps) {
+function Profile(props: any) {
     return (
         <div>
             <ProfileInfo title={""}/>

@@ -8,24 +8,21 @@ import {Route} from 'react-router-dom';
 import News from "./components/NavBar/News/News";
 import Music from "./components/NavBar/Music/Music";
 import Settings from "./components/NavBar/Settings/Settings";
-import {storeType} from './redux/store'
+
 import SateBar from "./components/SateBar/SateBar";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {AppStateType} from "./redux/redux-store";
 
 
-type app = {
-    store: storeType
-}
 
-
-function App(props: app) {
+function App() {
 
     return (
         <div className="app-wrapper">
             <Header title={""}/>
-            <NavBar valueSateBar={props.store.getState().sateBar}/>
+            <NavBar/>
             <div className={"app-wrapper-content"}>
-                <Route path='/profile' render={() => <Profile store={props.store}/>}/>
+                <Route path='/profile' render={() => <Profile/>}/>
                 <Route path='/dialogs' render={() => <DialogsContainer/>}/>
                 <Route path='/news' component={News}/>
                 <Route path='/music' component={Music}/>

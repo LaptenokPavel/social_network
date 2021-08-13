@@ -7,7 +7,7 @@ import {DialogsType, MessagesDataType} from "../../redux/dialogs-reducer";
 
 
 type DialogsProps = {
-    valueDialogs: DialogsType[]
+    valueDialogs: Array<DialogsType>
     valueMessages: Array<MessagesDataType>
     newMessage: string
     addMessage: () => void
@@ -16,7 +16,7 @@ type DialogsProps = {
 
 
 function Dialogs(props: DialogsProps) {
-
+    debugger
     let dialogsDataElement = (props.valueDialogs).map((d) => (<DialogItems name={d.name} id={d.id}/>));
     let messagesDataElement = (props.valueMessages).map((m) => (<Message message={m.message} id={m.id}/>));
 

@@ -1,14 +1,10 @@
 import React from "react";
-import {storeType} from "../../../redux/store";
+
 import {addMyPostActionCreator, newPostTextActionCreator} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 
 
-type MyPostsPageType = {
-    store: storeType
-}
-
-function MyPostsContainer(props: MyPostsPageType) {
+function MyPostsContainer(props: any) {
     let state = props.store.getState().profilePage
 
     const addPost = () => {

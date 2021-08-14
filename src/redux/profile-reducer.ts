@@ -9,10 +9,10 @@ export type ProfilePageType = {
     newPostText: string
 }
 
-export type ProfileActionsTypes =  updateNewPostText | addPost
+export type ProfileActionsTypes = updateNewPostText | addPost
 
 
-export const unitialStateProfilePage:ProfilePageType = {
+export const unitialStateProfilePage: ProfilePageType = {
     posts: [
         {id: 1, message: "Hi, How are you?", likes: 15},
         {id: 2, message: "It's my first post!", likes: 20},
@@ -20,23 +20,27 @@ export const unitialStateProfilePage:ProfilePageType = {
     newPostText: "it-kamasutra"
 }
 
-const profileReducer = (state: ProfilePageType  = unitialStateProfilePage, action: ProfileActionsTypes) => {
+const profileReducer = (state: ProfilePageType = unitialStateProfilePage, action: ProfileActionsTypes) => {
     switch (action.type) {
         case 'UPDATE-NEW-POST-TEXT':
-            state.newPostText = action.newText
-            return state
+            return {
+                ...state,
+                newPostText: action.newText
+            }
         case 'ADD-POST':
-        let newPost: PostsType = {
-            id: 3,
-            message: state.newPostText,
-            likes: 0,
-        }
-        state.posts.push(newPost)
-        state.newPostText = ''
+            let newPost: PostsType = {
+                id: 3,
+                message: state.newPostText,
+                likes: 0,
+            }
+            return {...state,
+                posts: [...state.posts, newPost],
+                newPostText: 'it-kamasutra'
+            }
+        default:
             return state
-        default:return state
     }
-    }
+}
 
 export type addPost = ReturnType<typeof addMyPostActionCreator>
 export type updateNewPostText = ReturnType<typeof newPostTextActionCreator>

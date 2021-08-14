@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    addPostActionCreator, DialogsPageType, DialogsType, MessagesDataType,
+    addPostActionCreator, DialogsType, MessagesDataType,
     newMessageTextActionCreator
 } from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
@@ -29,7 +29,7 @@ let mapStateToProps = (state: AppStateType):
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
+let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         addMessage: () => {
             dispatch(addPostActionCreator())

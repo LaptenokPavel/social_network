@@ -13,9 +13,9 @@ export type DialogsType = {
     id: number
     name: string
 }
- type DialogsActionsTypes = updateNewMessage | addMessage
+type DialogsActionsTypes = updateNewMessage | addMessage
 
-export const unitialStateDialogsPage:DialogsPageType = {
+export const unitialStateDialogsPage: DialogsPageType = {
     dialogs: [
         {id: 1, name: "Pasha"},
         {id: 2, name: "Dimych"},
@@ -35,19 +35,23 @@ export const unitialStateDialogsPage:DialogsPageType = {
     newMessage: "",
 }
 
-const dialogsReducer = (state: DialogsPageType = unitialStateDialogsPage, action: DialogsActionsTypes):DialogsPageType => {
+const dialogsReducer = (state: DialogsPageType = unitialStateDialogsPage, action: DialogsActionsTypes): DialogsPageType => {
     switch (action.type) {
         case'UPDATE-NEW-MESSAGE':
-            state.newMessage = action.message
-            return state
+            return {
+                ...state,
+                newMessage: action.message
+            }
         case 'ADD-MESSAGE':
             let messageNew: MessagesDataType = {
                 id: 1,
                 message: state.newMessage
             }
-            state.messagesData.push(messageNew)
-
-            return state
+            return {
+                ...state,
+                messagesData: [...state.messagesData, messageNew],
+                newMessage: ""
+            }
         default:
             return state
     }
@@ -59,7 +63,7 @@ export const addPostActionCreator = () => {
     return (
         {
             type: "ADD-MESSAGE",
-                   } as const
+        } as const
     )
 }
 export const newMessageTextActionCreator = (message: string) => {

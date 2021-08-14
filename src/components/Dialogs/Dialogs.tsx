@@ -16,9 +16,8 @@ type DialogsProps = {
 
 
 function Dialogs(props: DialogsProps) {
-    debugger
-    let dialogsDataElement = (props.valueDialogs).map((d) => (<DialogItems name={d.name} id={d.id}/>));
-    let messagesDataElement = (props.valueMessages).map((m) => (<Message message={m.message} id={m.id}/>));
+       let dialogsDataElement = (props.valueDialogs).map((d) => (<DialogItems key={d.id} name={d.name} id={d.id}/>));
+    let messagesDataElement = (props.valueMessages).map((m) => (<Message key={m.id} message={m.message} id={m.id}/>));
 
 
     const onAddMessage = () => {

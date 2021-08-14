@@ -1,15 +1,13 @@
 import React from "react";
 import s from './ProfileInfo.module.css';
 
-
-
 type ProfileInfoPropsType = {
     title: string
 }
 
-function ProfileInfo (props: ProfileInfoPropsType) {
+function ProfileInfo(props: ProfileInfoPropsType) {
     return (
-        <div >
+        <div>
             <div>
                 <img className={s.img} src="https://klike.net/uploads/posts/2019-01/1547366815_1.jpg" alt=""/>
             </div>
@@ -20,4 +18,5 @@ function ProfileInfo (props: ProfileInfoPropsType) {
         </div>
     )
 }
+
 export default ProfileInfo;

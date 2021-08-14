@@ -1,9 +1,8 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import s from './NavBar.module.css';
-//import {SateBarPage} from "../../redux/store";
-
-
+import {AppStateType} from "../../redux/redux-store";
+import {SateBarPage} from "../../redux/satebar-reducer";
 
 
 const Nav = () => {
@@ -30,7 +29,7 @@ const Nav = () => {
                 <h3>Friends</h3>
 
                 {/*<div className={s.friend}>*/}
-                {/*    {props.valueSateBar.map((v) => (<div>*/}
+                {/*    {state.sateBar.map((v) => (<div>*/}
                 {/*            <div className={s.avatar}></div>*/}
                 {/*            <div className={s.nik}>{v.name}</div>*/}
                 {/*        </div>*/}

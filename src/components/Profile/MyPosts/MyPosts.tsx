@@ -13,7 +13,7 @@ type MyPostsPageType = {
 function MyPosts(props: MyPostsPageType) {
 
     let postsDataElement = (props.valuePosts).map((p) =>
-        (<Post id={p.id} message={p.message} likes={p.likes}/>));
+        (<Post key={p.id} id={p.id} message={p.message} likes={p.likes}/>));
 
 
     const onAddPost = () => {

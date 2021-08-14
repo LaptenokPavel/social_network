@@ -1,6 +1,6 @@
-import dialogsReducer, {addMessage, updateNewMessage} from "./dialogs-reducer";
-import profileReducer, {addPost, updateNewPostText} from "./profile-reducer";
-import sateBarReducer from "./satebar-reducer";
+import {addMessage, updateNewMessage} from "./dialogs-reducer";
+import  {addPost, updateNewPostText} from "./profile-reducer";
+
 
 type PostsType = {
     id: number
@@ -45,7 +45,7 @@ type RootStateType = {
 
 type ActionsTypes = updateNewMessage | addMessage | updateNewPostText | addPost
 
-export type storeType = {
+type storeType = {
     _state: RootStateType
     _onChange: () => void
     subscribe: (observer: () => void) => void
@@ -53,7 +53,7 @@ export type storeType = {
     dispatch: (action: ActionsTypes) => void
 }
 
-export let store: storeType = {
+let store: storeType = {
     _state: {
         profilePage: {
             posts: [

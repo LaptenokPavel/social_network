@@ -5,12 +5,14 @@ import {AppStateType} from "../../redux/redux-store";
 import {SateBarPage} from "../../redux/satebar-reducer";
 
 
-const Nav = () => {
-
+const NavBar = () => {
     return (
         <nav className={s.nav}>
             <div className={s.item}>
                 <NavLink to={'/profile'} activeClassName={s.activeLink}>Profile</NavLink>
+            </div>
+            <div className={s.item}>
+                <NavLink to={'/users'} activeClassName={s.activeLink}>Users</NavLink>
             </div>
             <div className={s.item}>
                 <NavLink to={'/dialogs'} activeClassName={s.activeLink}>Messages</NavLink>
@@ -39,4 +41,4 @@ const Nav = () => {
         </nav>
     )
 }
-export default Nav;
+export default NavBar;

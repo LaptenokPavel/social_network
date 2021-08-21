@@ -1,8 +1,8 @@
 export type UsersType = {
     id: number
-    photo:string
+    photos:{small:string}
     followed: boolean
-    fullName: string
+    name: string
     status: string
     location: LocationType
 }

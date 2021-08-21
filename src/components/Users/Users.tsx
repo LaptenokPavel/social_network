@@ -1,6 +1,8 @@
 import React from 'react';
 import {UsersType} from "../../redux/users-reducer";
 import s from './Users.module.css';
+import axios from "axios";
+import userPhoto from '../../assets/images/withoutAvatar.jpg'
 
 type UsersPageType = {
     valueUsers: UsersType[]
@@ -14,32 +16,36 @@ type UsersPageType = {
 
 const Users = (props: UsersPageType) => {
 if (props.valueUsers.length === 0) {
-    props.setUsers([
-        {
-            id: 1,
-            photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUChMGlP-keUWH_P8DKHQQ4R1SNOK5CdMULg&usqp=CAU',
-            followed: false,
-            fullName: 'Pavel',
-            status: 'I am a student',
-            location: {city: 'Minsk', country: 'Belarus'}
-        },
-        {
-            id: 2,
-            photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnkXX1msb3FcwUKdveOb4VJ_8dlsezqUlqEQ&usqp=CAU',
-            followed: true,
-            fullName: 'Dima',
-            status: 'I am developer',
-            location: {city: 'Moskow', country: 'Russia'}
-        },
-        {
-            id: 3,
-            photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnkXX1msb3FcwUKdveOb4VJ_8dlsezqUlqEQ&usqp=CAU',
-            followed: false,
-            fullName: 'Yra',
-            status: 'I am a teacher',
-            location: {city: 'Kiev', country: 'Ukraine'}
-        },
-    ])
+    axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {props.setUsers(response.data.items)
+    }
+    )
+
+    // ([
+    //     {
+    //         id: 1,
+    //         photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUChMGlP-keUWH_P8DKHQQ4R1SNOK5CdMULg&usqp=CAU',
+    //         followed: false,
+    //         fullName: 'Pavel',
+    //         status: 'I am a student',
+    //         location: {city: 'Minsk', country: 'Belarus'}
+    //     },
+    //     {
+    //         id: 2,
+    //         photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnkXX1msb3FcwUKdveOb4VJ_8dlsezqUlqEQ&usqp=CAU',
+    //         followed: true,
+    //         fullName: 'Dima',
+    //         status: 'I am developer',
+    //         location: {city: 'Moskow', country: 'Russia'}
+    //     },
+    //     {
+    //         id: 3,
+    //         photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnkXX1msb3FcwUKdveOb4VJ_8dlsezqUlqEQ&usqp=CAU',
+    //         followed: false,
+    //         fullName: 'Yra',
+    //         status: 'I am a teacher',
+    //         location: {city: 'Kiev', country: 'Ukraine'}
+    //     },
+    // ])
 }
     return (
         <div>
@@ -47,7 +53,7 @@ if (props.valueUsers.length === 0) {
                 props.valueUsers.map(v =>
                     <div key={v.id}>
                     <span>
-                        <div><img className={s.icon} src={v.photo}/></div>
+                        <div><img className={s.icon} src={v.photos.small !== null? v.photos.small: userPhoto}/></div>
                         <div>
                             {v.followed
                                 ? <button onClick={()=>{props.follow(v.id)}}>Follow</button>
@@ -57,12 +63,12 @@ if (props.valueUsers.length === 0) {
                     </span>
                         <span>
                             <span>
-                                <div>{v.fullName}</div>
+                                <div>{v.name}</div>
                                 <div>{v.status}</div>
                             </span>
                         <span>
-                            <div>{v.location.country}</div>
-                            <div>{v.location.city}</div>
+                            <div>{'v.location.country'}</div>
+                            <div>{'v.location.city'}</div>
                         </span>
                     </span>
                     </div>)

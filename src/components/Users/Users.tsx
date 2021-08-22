@@ -12,56 +12,34 @@ type UsersPageType = {
 }
 
 
+class Users extends React.Component<UsersPageType> {
 
-
-const Users = (props: UsersPageType) => {
-if (props.valueUsers.length === 0) {
-    axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {props.setUsers(response.data.items)
+    componentDidMount() {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                this.props.setUsers(response.data.items)
+            }
+        )
     }
-    )
-
-    // ([
-    //     {
-    //         id: 1,
-    //         photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUChMGlP-keUWH_P8DKHQQ4R1SNOK5CdMULg&usqp=CAU',
-    //         followed: false,
-    //         fullName: 'Pavel',
-    //         status: 'I am a student',
-    //         location: {city: 'Minsk', country: 'Belarus'}
-    //     },
-    //     {
-    //         id: 2,
-    //         photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnkXX1msb3FcwUKdveOb4VJ_8dlsezqUlqEQ&usqp=CAU',
-    //         followed: true,
-    //         fullName: 'Dima',
-    //         status: 'I am developer',
-    //         location: {city: 'Moskow', country: 'Russia'}
-    //     },
-    //     {
-    //         id: 3,
-    //         photo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnkXX1msb3FcwUKdveOb4VJ_8dlsezqUlqEQ&usqp=CAU',
-    //         followed: false,
-    //         fullName: 'Yra',
-    //         status: 'I am a teacher',
-    //         location: {city: 'Kiev', country: 'Ukraine'}
-    //     },
-    // ])
-}
-    return (
-        <div>
-            {
-                props.valueUsers.map(v =>
-                    <div key={v.id}>
+    render() {
+        return (
+            <div>
+                {
+                    this.props.valueUsers.map(v =>
+                        <div key={v.id}>
                     <span>
-                        <div><img className={s.icon} src={v.photos.small !== null? v.photos.small: userPhoto}/></div>
+                        <div><img className={s.icon} src={v.photos.small !== null ? v.photos.small : userPhoto}/></div>
                         <div>
                             {v.followed
-                                ? <button onClick={()=>{props.follow(v.id)}}>Follow</button>
-                                : <button onClick={()=>{props.unfollow(v.id)}}>UnFollow</button>
+                                ? <button onClick={() => {
+                                    this.props.follow(v.id)
+                                }}>Follow</button>
+                                : <button onClick={() => {
+                                    this.props.unfollow(v.id)
+                                }}>UnFollow</button>
                             }
                         </div>
                     </span>
-                        <span>
+                            <span>
                             <span>
                                 <div>{v.name}</div>
                                 <div>{v.status}</div>
@@ -71,11 +49,11 @@ if (props.valueUsers.length === 0) {
                             <div>{'v.location.city'}</div>
                         </span>
                     </span>
-                    </div>)
-            }
-
-        </div>
-    )
+                        </div>)
+                }
+            </div>
+        )
+    }
 }
 
 

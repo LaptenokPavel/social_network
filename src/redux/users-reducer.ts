@@ -14,13 +14,19 @@ type LocationType = {
 
 type UsersPageStateType = {
     users: UsersType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
-export type UsersFollowActionTypes = follow | unfollow | setUsers
+export type UsersFollowActionTypes = follow | unfollow | setUsers | setCurrentPage | setTotalUsersCount
 
 
 export const unitialStateUsersPage: UsersPageStateType = {
-    users: [  ]
+    users: [  ],
+    pageSize: 4,
+    totalUsersCount: 0,
+    currentPage: 3
 }
 
 const usersReducer = (state: UsersPageStateType = unitialStateUsersPage, action: UsersFollowActionTypes) => {
@@ -38,7 +44,17 @@ return {
         case "SET-USERS":
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: action.users
+            }
+        case "SET-CURRENT-PAGE":
+            return {
+                ...state,
+                currentPage:action.currentPage
+            }
+        case "SET-TOTAL-USERS-COUNT":
+            return {
+                ...state,
+                totalUsersCount:action.count
             }
         default:
             return state
@@ -48,6 +64,8 @@ return {
 export type follow = ReturnType<typeof followAC>
 export type unfollow = ReturnType<typeof unfollowAC>
 export type setUsers = ReturnType<typeof setUsersAC>
+export type setCurrentPage = ReturnType<typeof setCurrentPageAC>
+export type setTotalUsersCount = ReturnType<typeof setTotalUsersCountAC>
 
 
 export const followAC = (userId: number) => {
@@ -76,4 +94,21 @@ export const setUsersAC = (users: UsersType[]) => {
     )
 }
 
+export const setCurrentPageAC = (currentPage: number) => {
+    return (
+        {
+            type: 'SET-CURRENT-PAGE',
+            currentPage: currentPage
+        } as const
+    )
+}
+
+export const setTotalUsersCountAC = (totalUsersCount: number) => {
+    return (
+        {
+            type: 'SET-TOTAL-USERS-COUNT',
+            count: totalUsersCount
+        } as const
+    )
+}
 export default usersReducer;

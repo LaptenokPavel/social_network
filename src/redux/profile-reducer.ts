@@ -7,9 +7,34 @@ export type PostsType = {
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
+    profile: ProfileType | undefined
 }
 
-export type ProfileActionsTypes = updateNewPostText | addPost
+export type ProfileType = {
+
+    "aboutMe": string
+    "contacts": {
+        "facebook": string
+        "website": string
+        "vk": string
+        "twitter": string
+        "instagram": string
+        "youtube": string
+        "github": string
+        "mainLink": string
+    },
+    "lookingForAJob": boolean
+    "lookingForAJobDescription": string
+    "fullName": string
+    "userId": number
+    "photos": {
+        "small": string
+        "large": string
+    }
+
+}
+
+export type ProfileActionsTypes = updateNewPostText | addPost | setUserProfile
 
 
 export const unitialStateProfilePage: ProfilePageType = {
@@ -17,7 +42,8 @@ export const unitialStateProfilePage: ProfilePageType = {
         {id: 1, message: "Hi, How are you?", likes: 15},
         {id: 2, message: "It's my first post!", likes: 20},
     ],
-    newPostText: "it-kamasutra"
+    newPostText: "it-kamasutra",
+    profile: undefined
 }
 
 const profileReducer = (state: ProfilePageType = unitialStateProfilePage, action: ProfileActionsTypes) => {
@@ -37,6 +63,11 @@ const profileReducer = (state: ProfilePageType = unitialStateProfilePage, action
                 posts: [...state.posts, newPost],
                 newPostText: 'it-kamasutra'
             }
+        case 'SET-USER-PROFILE':
+            return {
+                ...state,
+                profile: action.profile
+            }
         default:
             return state
     }
@@ -44,6 +75,7 @@ const profileReducer = (state: ProfilePageType = unitialStateProfilePage, action
 
 export type addPost = ReturnType<typeof addMyPostActionCreator>
 export type updateNewPostText = ReturnType<typeof newPostTextActionCreator>
+export type setUserProfile = ReturnType<typeof setUserProfile>
 
 export const addMyPostActionCreator = () => {
     return (
@@ -57,6 +89,14 @@ export const newPostTextActionCreator = (post: string) => {
         {
             type: 'UPDATE-NEW-POST-TEXT',
             newText: post
+        } as const
+    )
+}
+export const setUserProfile = (profile: ProfileType) => {
+    return (
+        {
+            type: 'SET-USER-PROFILE',
+            profile: profile
         } as const
     )
 }

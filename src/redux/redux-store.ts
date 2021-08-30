@@ -3,6 +3,7 @@ import dialogsReducer from "./dialogs-reducer";
 import profileReducer from "./profile-reducer";
 import sateBarReducer from "./satebar-reducer";
 import usersReducer from "./users-reducer";
+
 export type AppStateType = ReturnType<typeof rootReducer>;
 
 let rootReducer = combineReducers({

@@ -94,17 +94,6 @@ let mapStateToProps = (state: AppStateType):
     }
 }
 
-// let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-//     return {
-//         follow: followAC,
-//         unfollow: unfollowAC,
-//         setUsers: setUsersAC,
-//         setCurrentPage: setCurrentPageAC,
-//         setTotalUsersCount: setTotalUsersCountAC,
-//         toggleIsFetching: toggleIsFetchingAC
-//     }
-// }
-
 const Container = connect(mapStateToProps,{
     follow,
     unfollow,

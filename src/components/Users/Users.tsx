@@ -46,12 +46,8 @@ export function Users(props: UsersPropsType) {
                         </div>
                         <div>
                             {v.followed
-                                ? <button onClick={() => {
-                                    props.follow(v.id)
-                                }}>Follow</button>
-                                : <button onClick={() => {
-                                    props.unfollow(v.id)
-                                }}>UnFollow</button>
+                                ? <button onClick={() => {props.follow(v.id)}}>Follow</button>
+                                : <button onClick={() => {props.unfollow(v.id)}}>UnFollow</button>
                             }
                         </div>
                     </span>

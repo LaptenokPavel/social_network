@@ -5,14 +5,14 @@ import {
     follow,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers,
+    setUsers, togglefollowingProgress,
     toggleIsFetching,
     unfollow,
     UsersType
 } from "../../redux/users-reducer";
-import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {usersAPI} from "../../api/api";
 
 
 type MapStateToPropsType = {
@@ -21,6 +21,7 @@ type MapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -29,31 +30,20 @@ type MapDispatchToPropsType = {
     setUsers: (users: UsersType[]) => void
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (totalCount: number) => void
-    toggleIsFetching: (isFetching: boolean) =>void
- }
-
-export type UsersPageType = {
-    valueUsers: UsersType[]
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    setUsers: (users: UsersType[]) => void
-    setCurrentPage: (pageNumber: number) => void
-    setTotalUsersCount: (totalCount: number) => void
-    toggleIsFetching: (isFetching: boolean) =>void
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean
+    toggleIsFetching: (isFetching: boolean) => void
+    togglefollowingProgress: (followingInProgress: boolean)=>void
 }
+
+export type UsersPageType = MapStateToPropsType & MapDispatchToPropsType
 
 class UsersContainer extends React.Component<UsersPageType> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-            this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+                this.props.toggleIsFetching(false)
+                this.props.setUsers(data.items)
+                this.props.setTotalUsersCount(data.totalCount)
             }
         )
     }
@@ -61,23 +51,27 @@ class UsersContainer extends React.Component<UsersPageType> {
     onPageChanged = (pageNumber: number) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(response.data.items)
+        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
+                this.props.toggleIsFetching(false)
+                this.props.setUsers(data.items)
             }
         )
     }
 
     render() {
         return <>
-            {this.props.isFetching ? <Preloader/> :null}
-                        <Users valueUsers={this.props.valueUsers}
-                   follow={this.props.follow}
-                   unfollow={this.props.unfollow}
-                   pageSize={this.props.pageSize}
-                   totalUsersCount={this.props.totalUsersCount}
-                   currentPage={this.props.currentPage}
-                   onPageChanged={this.onPageChanged}
+            {this.props.isFetching ? <Preloader/> : null}
+            <Users
+                valueUsers={this.props.valueUsers}
+                follow={this.props.follow}
+                unfollow={this.props.unfollow}
+                pageSize={this.props.pageSize}
+                totalUsersCount={this.props.totalUsersCount}
+                currentPage={this.props.currentPage}
+                onPageChanged={this.onPageChanged}
+                togglefollowingProgress={this.props.togglefollowingProgress}
+                followingInProgress={this.props.followingInProgress}
+
             />
         </>
     }
@@ -85,22 +79,25 @@ class UsersContainer extends React.Component<UsersPageType> {
 
 let mapStateToProps = (state: AppStateType):
     MapStateToPropsType => {
+
     return {
         valueUsers: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
-const Container = connect(mapStateToProps,{
+const Container = connect(mapStateToProps, {
     follow,
     unfollow,
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
-    toggleIsFetching
+    toggleIsFetching,
+    togglefollowingProgress
 })(UsersContainer)
 
 export default Container;

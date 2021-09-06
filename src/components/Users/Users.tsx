@@ -14,8 +14,8 @@ type UsersPropsType = {
     totalUsersCount: number
     currentPage: number
     onPageChanged: (pageNumber: number) => void
-    togglefollowingProgress: (followingInProgress: boolean) => void
-    followingInProgress: boolean
+    togglefollowingProgress: (isFetching:boolean, userId:number) => void
+    followingInProgress: number[]
 }
 
 export function Users(props: UsersPropsType) {
@@ -48,9 +48,9 @@ export function Users(props: UsersPropsType) {
                         </div>
                         <div>
                             {v.followed
-                                ? <button disabled={props.followingInProgress}
+                                ? <button disabled={props.followingInProgress.some(id => id === v.id)}
                                           onClick={() => {
-                                              props.togglefollowingProgress(true)
+                                              props.togglefollowingProgress(true, v.id)
                                               axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${v.id}`, {
                                                   withCredentials: true,
                                                   headers: {'API-KEY': 'dc569a26-a91b-4790-8229-be2e51017394'}
@@ -58,15 +58,15 @@ export function Users(props: UsersPropsType) {
                                                   if (response.data.resultCode == 0) {
                                                       props.unfollow(v.id)
                                                   }
-                                                  props.togglefollowingProgress(false)
+                                                  props.togglefollowingProgress(false, v.id)
                                               })
 
                                           }}>UnFollow</button>
 
 
-                                : <button disabled={props.followingInProgress}
+                                : <button disabled={props.followingInProgress.some(id => id === v.id)}
                                           onClick={() => {
-                                              props.togglefollowingProgress(true)
+                                              props.togglefollowingProgress(true, v.id)
                                               axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${v.id}`, {}, {
                                                       withCredentials: true,
                                                       headers: {'API-KEY': 'dc569a26-a91b-4790-8229-be2e51017394'}
@@ -75,7 +75,7 @@ export function Users(props: UsersPropsType) {
                                                   if (response.data.resultCode == 0) {
                                                       props.follow(v.id)
                                                   }
-                                                  props.togglefollowingProgress(false)
+                                                  props.togglefollowingProgress(false, v.id)
                                               })
 
                                           }}>Follow</button>

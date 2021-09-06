@@ -21,7 +21,7 @@ type MapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: boolean
+    followingInProgress: number[]
 }
 
 type MapDispatchToPropsType = {
@@ -31,7 +31,7 @@ type MapDispatchToPropsType = {
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
-    togglefollowingProgress: (followingInProgress: boolean)=>void
+    togglefollowingProgress: (isFetching:boolean, userId:number)=>void
 }
 
 export type UsersPageType = MapStateToPropsType & MapDispatchToPropsType
@@ -86,8 +86,8 @@ let mapStateToProps = (state: AppStateType):
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
-    }
+        followingInProgress:state.usersPage.followingInProgress
+            }
 }
 
 const Container = connect(mapStateToProps, {

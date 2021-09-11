@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 export type UsersType = {
     id: number
     photos:{small:string}
@@ -20,6 +22,8 @@ type UsersPageStateType = {
     isFetching: boolean
     followingInProgress: number[]
 }
+
+
 
 export type UsersFollowActionTypes = follow | unfollow | setUsers | setCurrentPage | setTotalUsersCount | toggleIsFetching | togglefollowingProgress
 
@@ -151,4 +155,42 @@ export const togglefollowingProgress = (isFetching:boolean, userId:number) => {
         } as const
     )
 }
+
+export const getUsersThunkCreator = (currentPage: number, pageSize:number) => {
+    return(dispatch:any) => {
+        dispatch(toggleIsFetching(true))
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+    })
+}
+}
+
+export const followThunk = (userId:number) => {
+    return(dispatch:any) => {
+        dispatch(togglefollowingProgress(true, userId))
+        usersAPI.follow(userId)
+            .then(response => {
+                if (response.data.resultCode == 0) {
+                    dispatch(follow(userId))
+                }
+                dispatch(togglefollowingProgress(false, userId))
+            })
+    }
+}
+
+export const unfollowThunk = (userId:number) => {
+    return (dispatch: any) => {
+        dispatch(togglefollowingProgress(true, userId))
+        usersAPI.unfollow(userId)
+            .then(response => {
+                if (response.data.resultCode == 0) {
+                    dispatch(unfollow(userId))
+                }
+                dispatch(togglefollowingProgress(false, userId))
+            })
+    }
+}
+
 export default usersReducer;

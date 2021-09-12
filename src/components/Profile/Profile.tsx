@@ -5,9 +5,11 @@ import {ProfileType} from "../../redux/profile-reducer";
 
 export type ProfilePropsType = {
     profile: ProfileType | undefined
+
 }
 
 function Profile(props:ProfilePropsType) {
+
     return (
         <div>
             <ProfileInfo profile={props.profile}/>

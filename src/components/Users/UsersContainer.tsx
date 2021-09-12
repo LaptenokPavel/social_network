@@ -19,14 +19,14 @@ type MapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: number[]
+    followingInProgress: string[]
 }
 
 type MapDispatchToPropsType = {
     setCurrentPage: (pageNumber: number) => void
     getUsersThunkCreator:(currentPage: number, pageSize:number)=>void
-    followThunk:(userId:number) => void
-    unfollowThunk:(userId:number) => void
+    followThunk:(userId:string) => void
+    unfollowThunk:(userId:string) => void
 }
 
 export type UsersPageType = MapStateToPropsType & MapDispatchToPropsType

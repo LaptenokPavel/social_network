@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 export type PostsType = {
     id: number
     message: string
@@ -99,6 +101,13 @@ export const setUserProfile = (profile: ProfileType) => {
             profile: profile
         } as const
     )
+}
+export const getUserProfile = (userId: string) => {
+    return(dispatch:any) => (
+                    usersAPI.getProfile(userId).then(response => {
+                dispatch(setUserProfile(response.data))
+            })
+            )
 }
 
 export default profileReducer;

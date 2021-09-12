@@ -1,15 +1,15 @@
 import React from "react";
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {RouteComponentProps, withRouter } from "react-router-dom";
-import {ProfileType, setUserProfile} from "../../redux/profile-reducer";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {getUserProfile, ProfileType} from "../../redux/profile-reducer";
+
 
 
 type PathParamType = {
     userId: string
-}
+    }
 
 type PropsType = RouteComponentProps<PathParamType> & ProfileConteinerType
 
@@ -18,10 +18,11 @@ type ProfileConteinerType = mapStateProfileConteinerType  & mapSDispatchProfileC
 
    type mapStateProfileConteinerType = {
     profile: ProfileType | undefined
+       isAuth: boolean
 }
 
 type mapSDispatchProfileConteinerType = {
-    setUserProfile:(profile: ProfileType) => void
+    getUserProfile:(userId: string) => void
 }
 
 class ProfileConteiner extends React.Component<PropsType> {
@@ -33,13 +34,17 @@ class ProfileConteiner extends React.Component<PropsType> {
 if(!userId){
     userId = '2'
 }
-     axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId).then(response => {
-                          this.props.setUserProfile(response.data)
-                   }
-     )
+    this.props.getUserProfile(userId)
  }
 
     render() {
+
+        if(!this.props.isAuth){
+            return(
+                <Redirect to={'/login'}/>
+            )
+        }
+
         return (
             <Profile
             profile={this.props.profile}
@@ -51,11 +56,12 @@ if(!userId){
 let mapStateToProps = (state:AppStateType):mapStateProfileConteinerType => {
     return {
         profile: state.profilePage.profile,
+        isAuth: state.auth.isAuth
     }
 }
 
 let WithUrlDataContainerComponent = withRouter(ProfileConteiner)
 
-export default connect(mapStateToProps, {setUserProfile}) (WithUrlDataContainerComponent);
+export default connect(mapStateToProps,  {getUserProfile})(WithUrlDataContainerComponent);
 
 // {...this.props}

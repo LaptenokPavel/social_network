@@ -1,7 +1,7 @@
 import {usersAPI} from "../api/api";
 
 export type UsersType = {
-    id: number
+    id: string
     photos:{small:string}
     followed: boolean
     name: string
@@ -20,7 +20,7 @@ type UsersPageStateType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: number[]
+    followingInProgress: string[]
 }
 
 
@@ -34,7 +34,7 @@ export const unitialStateUsersPage: UsersPageStateType = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
-    followingInProgress: [2,3]
+    followingInProgress: ['2','3']
 }
 
 const usersReducer = (state: UsersPageStateType = unitialStateUsersPage, action: UsersFollowActionTypes) => {
@@ -90,7 +90,7 @@ export type toggleIsFetching = ReturnType<typeof toggleIsFetching>
 export type togglefollowingProgress = ReturnType<typeof togglefollowingProgress>
 
 
-export const follow = (userId: number) => {
+export const follow = (userId: string) => {
     return (
         {
             type: 'FOLLOW',
@@ -98,7 +98,7 @@ export const follow = (userId: number) => {
         } as const
     )
 }
-export const unfollow = (userId: number) => {
+export const unfollow = (userId: string) => {
     return (
         {
             type: 'UNFOLLOW',
@@ -144,7 +144,7 @@ export const toggleIsFetching = (isFetching: boolean) => {
     )
 }
 
-export const togglefollowingProgress = (isFetching:boolean, userId:number) => {
+export const togglefollowingProgress = (isFetching:boolean, userId:string) => {
 
     return (
         {
@@ -167,7 +167,7 @@ export const getUsersThunkCreator = (currentPage: number, pageSize:number) => {
 }
 }
 
-export const followThunk = (userId:number) => {
+export const followThunk = (userId:string) => {
     return(dispatch:any) => {
         dispatch(togglefollowingProgress(true, userId))
         usersAPI.follow(userId)
@@ -180,7 +180,7 @@ export const followThunk = (userId:number) => {
     }
 }
 
-export const unfollowThunk = (userId:number) => {
+export const unfollowThunk = (userId:string) => {
     return (dispatch: any) => {
         dispatch(togglefollowingProgress(true, userId))
         usersAPI.unfollow(userId)

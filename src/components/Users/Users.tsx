@@ -12,9 +12,9 @@ type UsersPropsType = {
     totalUsersCount: number
     currentPage: number
     onPageChanged: (pageNumber: number) => void
-    followingInProgress: number[]
-    followThunk:(userId:number) => void
-    unfollowThunk:(userId:number) => void
+    followingInProgress: string[]
+    followThunk:(userId:string) => void
+    unfollowThunk:(userId:string) => void
 }
 
 export function Users(props: UsersPropsType) {

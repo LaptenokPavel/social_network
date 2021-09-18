@@ -3,18 +3,15 @@ import s from './Dialogs.module.css'
 import {DialogItems} from "./DialogsItem/DialogItems";
 import {Message} from "./Message/Message";
 import {DialogsType, MessagesDataType} from "../../redux/dialogs-reducer";
-import { Redirect } from 'react-router-dom';
 
 
-
-type DialogsProps = {
+export type DialogsProps = {
     valueDialogs: Array<DialogsType>
     valueMessages: Array<MessagesDataType>
     newMessage: string
     addMessage: () => void
     uppdateNewMessage: (message: string) => void
-    isAuth: boolean
-};
+    };
 
 
 function Dialogs(props: DialogsProps) {
@@ -29,12 +26,6 @@ function Dialogs(props: DialogsProps) {
     const newMessageText = (newMessage: ChangeEvent<HTMLTextAreaElement>) => {
         let message = newMessage.currentTarget.value
         props.uppdateNewMessage(message)
-    }
-
-    if(!props.isAuth){
-        return(
-            <Redirect to={'/login'}/>
-        )
     }
 
     return (

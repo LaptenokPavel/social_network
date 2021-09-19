@@ -40,6 +40,7 @@ if(!userId){
     userId = '2'
 }
     this.props.getUserProfile(userId)
+        this.props.getUserStatus(userId)
  }
 
     render() {
@@ -55,9 +56,10 @@ if(!userId){
 let mapStateToProps = (state:AppStateType):mapStateProfileConteinerType => {
     return {
         profile: state.profilePage.profile,
+        status: state.profilePage.status
           }
 }
 
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps,  {getUserProfile}),withRouter, withAuthRedirect)(ProfileConteiner)
+    connect(mapStateToProps,  {getUserProfile}),withRouter)(ProfileConteiner)

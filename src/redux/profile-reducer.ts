@@ -45,7 +45,8 @@ export const unitialStateProfilePage: ProfilePageType = {
         {id: 2, message: "It's my first post!", likes: 20},
     ],
     newPostText: "it-kamasutra",
-    profile: undefined
+    profile: undefined,
+    status: ''
 }
 
 const profileReducer = (state: ProfilePageType = unitialStateProfilePage, action: ProfileActionsTypes) => {

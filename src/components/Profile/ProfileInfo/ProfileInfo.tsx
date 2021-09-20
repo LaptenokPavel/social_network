@@ -10,6 +10,8 @@ import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile: ProfileType | undefined
+    status: string
+    updateUserStatus:(status: string) => void
 }
 
 function ProfileInfo(props:ProfileInfoPropsType) {
@@ -22,7 +24,9 @@ function ProfileInfo(props:ProfileInfoPropsType) {
             {/*</div>*/}
             <div className={s.discription}>
                 <img src={props.profile.photos.large}/>
-                <ProfileStatus status={'I learn React'}/>
+                <ProfileStatus status={props.status}
+                               updateUserStatus={props.updateUserStatus}
+                />
                 <div>aboutMe: {props.profile.aboutMe}</div>
                 <div>facebook: {props.profile.contacts.facebook}</div>
                 <div >lookingForAJob: {props.profile.lookingForAJob

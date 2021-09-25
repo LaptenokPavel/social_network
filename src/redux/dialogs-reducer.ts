@@ -1,7 +1,7 @@
 export type DialogsPageType = {
     dialogs: Array<DialogsType>
     messagesData: Array<MessagesDataType>
-    newMessage: string
+
 }
 
 export type MessagesDataType = {
@@ -13,7 +13,7 @@ export type DialogsType = {
     id: number
     name: string
 }
-type DialogsActionsTypes = updateNewMessage | addMessage
+
 
 export const unitialStateDialogsPage: DialogsPageType = {
     dialogs: [
@@ -32,47 +32,34 @@ export const unitialStateDialogsPage: DialogsPageType = {
         {id: 4, message: "Yo"},
         {id: 5, message: "Yo"},
     ],
-    newMessage: "",
 }
 
-const dialogsReducer = (state: DialogsPageType = unitialStateDialogsPage, action: DialogsActionsTypes): DialogsPageType => {
+const dialogsReducer = (state: DialogsPageType = unitialStateDialogsPage, action: addMessage): DialogsPageType => {
     switch (action.type) {
-        case'UPDATE-NEW-MESSAGE':
-            return {
-                ...state,
-                newMessage: action.message
-            }
-        case 'ADD-MESSAGE':
+             case 'ADD-MESSAGE':
             let messageNew: MessagesDataType = {
-                id: 1,
-                message: state.newMessage
+                id: 6,
+                message: action.newMessageBody
             }
             return {
                 ...state,
                 messagesData: [...state.messagesData, messageNew],
-                newMessage: ""
             }
         default:
             return state
     }
 }
 export type addMessage = ReturnType<typeof addPostActionCreator>
-export type updateNewMessage = ReturnType<typeof newMessageTextActionCreator>
 
-export const addPostActionCreator = () => {
+
+export const addPostActionCreator = (newMessageBody: string) => {
     return (
         {
             type: "ADD-MESSAGE",
+            newMessageBody: newMessageBody
         } as const
     )
 }
-export const newMessageTextActionCreator = (message: string) => {
-    return (
-        {
-            type: 'UPDATE-NEW-MESSAGE',
-            message: message
-        } as const
-    )
-}
+
 
 export default dialogsReducer;

@@ -1,7 +1,6 @@
 import React from 'react';
 import {
-    addPostActionCreator, DialogsType, MessagesDataType,
-    newMessageTextActionCreator
+    addPostActionCreator, DialogsType, MessagesDataType
 } from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
 import Dialogs from "./Dialogs";
@@ -13,12 +12,12 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 type MapStateToPropsType = {
     valueDialogs: DialogsType[]
     valueMessages: MessagesDataType[]
-    newMessage: string
-    }
+
+}
 
 type MapDispatchToPropsType = {
-    addMessage: () => void
-    uppdateNewMessage: (message: string) => void
+    addMessage: (newMessageBody: string) => void
+
 }
 
 let mapStateToProps = (state: AppStateType):
@@ -26,22 +25,18 @@ let mapStateToProps = (state: AppStateType):
     return {
         valueDialogs: state.dialogsPage.dialogs,
         valueMessages: state.dialogsPage.messagesData,
-        newMessage: state.dialogsPage.newMessage,
-           }
+            }
 }
 
 let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
-        addMessage: () => {
-            dispatch(addPostActionCreator())
-        },
-        uppdateNewMessage: (message: string) => {
-            dispatch(newMessageTextActionCreator(message))
+        addMessage: (newMessageBody: string) => {
+            dispatch(addPostActionCreator(newMessageBody))
         }
     }
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, mapDispatchToProps),withAuthRedirect)(Dialogs)
+    connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs)
 
 

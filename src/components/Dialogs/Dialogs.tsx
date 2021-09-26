@@ -4,6 +4,9 @@ import {DialogItems} from "./DialogsItem/DialogItems";
 import {Message} from "./Message/Message";
 import {DialogsType, MessagesDataType} from "../../redux/dialogs-reducer";
 import {Field,  InjectedFormProps, reduxForm} from "redux-form";
+import {Textarea} from "../common/FormsControls/FormsControls";
+import {maxLenghtCreator, minLenghtCreator, requiredField} from "../../utils/validators/validators";
+import {maxLength, minLength} from "../Profile/MyPosts/MyPosts";
 
 
 export type DialogsProps = {
@@ -47,7 +50,8 @@ const AddMessageForm = (props:InjectedFormProps<AddMessageFormType>) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={'textarea'}
+                <Field component={Textarea}
+                       validate={[requiredField, maxLength, minLength]}
                        name={'newMessageBody'}/>
             </div>
             <div>

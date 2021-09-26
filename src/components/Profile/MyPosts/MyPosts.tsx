@@ -3,6 +3,8 @@ import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {PostsType} from "../../../redux/profile-reducer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {maxLenghtCreator, minLenghtCreator, requiredField} from "../../../utils/validators/validators";
+import {Textarea} from "../../common/FormsControls/FormsControls";
 
 type MyPostsPageType = {
     valuePosts: Array<PostsType>
@@ -36,12 +38,17 @@ function MyPosts(props: MyPostsPageType) {
 
 }
 
+export let maxLength = maxLenghtCreator(30)
+export let minLength = minLenghtCreator(2)
+
 const AddNewPostForm = (props:InjectedFormProps<AddNewPostFormType>)=>{
     return(
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={'textarea'}
+                <Field component={Textarea}
                        name={'newPostText'}
+                       validate={[requiredField, maxLength, minLength]}
+                       placeholder={'hello'}
                       />
             </div>
             <div>

@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {Redirect} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
-
+import s from '../common/FormsControls/FormsControls.module.css'
 
 type FormDataType = {
     email: string
@@ -49,6 +49,9 @@ function LoginForm(props: InjectedFormProps<FormDataType>) {
                        name={'remember me'}
                        type='checkbox'/>remember me
             </div>
+            {props.error && <div className={s.form_summary_error}>
+                {props.error}
+            </div>}
             <div>
                 <button>Login</button>
             </div>
@@ -75,7 +78,7 @@ const Login = (props: LoginType) => {
     )
 }
 
-const mapStateToProps = (state:AppStateType) => ({
+const mapStateToProps = (state: AppStateType) => ({
     isAuth: state.auth.isAuth
 })
 

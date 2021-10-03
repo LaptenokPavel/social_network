@@ -1,16 +1,18 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {
-    followThunk, getUsersThunkCreator,
-    setCurrentPage,
-    unfollowThunk,
-    UsersType
-} from "../../redux/users-reducer";
+import {followThunk, getUsersThunkCreator, setCurrentPage, unfollowThunk, UsersType} from "../../redux/users-reducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/users-selectors";
 
 
 type MapStateToPropsType = {
@@ -58,21 +60,34 @@ class UsersContainer extends React.Component<UsersPageType> {
     }
 }
 
+// let mapStateToProps = (state: AppStateType):
+//     MapStateToPropsType => {
+//
+//     return {
+//         valueUsers: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress
+//     }
+// }
+
 let mapStateToProps = (state: AppStateType):
     MapStateToPropsType => {
 
     return {
-        valueUsers: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        valueUsers: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
 
 
-export default compose<React.ComponentType>(withAuthRedirect, connect(mapStateToProps, {
+export default compose<React.ComponentType>(connect(mapStateToProps, {
     setCurrentPage,
     getUsersThunkCreator,
     followThunk,

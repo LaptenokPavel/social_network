@@ -47,7 +47,7 @@ export const setUserData = (id: string, email: string, login: string, isAuth: bo
 }
 export const getUserData = (): ThunkType => {
     return (dispatch) => {
-        authAPI.me().then(response => {
+      return authAPI.me().then(response => {
             if (response.data.resultCode === 0) {
                 let {id, email, login, isAuth} = response.data.data;
                 dispatch(setUserData(id, email, login, true))

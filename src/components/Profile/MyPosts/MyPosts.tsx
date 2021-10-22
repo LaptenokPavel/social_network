@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {PostsType} from "../../../redux/profile-reducer";
@@ -15,7 +15,7 @@ type AddNewPostFormType = {
     newPostText:string
 }
 
-function MyPosts(props: MyPostsPageType) {
+const MyPosts  = React.memo((props: MyPostsPageType) => {
 
     let postsDataElement = (props.valuePosts).map((p) =>
         (<Post key={p.id} id={p.id} message={p.message} likes={p.likes}/>));
@@ -36,7 +36,7 @@ function MyPosts(props: MyPostsPageType) {
         </div>
     )
 
-}
+})
 
 export let maxLength = maxLenghtCreator(30)
 export let minLength = minLenghtCreator(2)

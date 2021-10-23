@@ -46,37 +46,33 @@ export const setUserData = (id: string, email: string, login: string, isAuth: bo
     )
 }
 export const getUserData = (): ThunkType => {
-    return (dispatch) => {
-      return authAPI.me().then(response => {
+    return async (dispatch) => {
+      let response = await authAPI.me()
             if (response.data.resultCode === 0) {
                 let {id, email, login, isAuth} = response.data.data;
                 dispatch(setUserData(id, email, login, true))
             }
-        })
     }
 }
 
 export const login = (email: string, password: string, rememberMe: boolean): ThunkType => {
-    return (dispatch) => {
-        authAPI.login(email, password, rememberMe)
-            .then(response => {
+    return async (dispatch) => {
+       let response = await authAPI.login(email, password, rememberMe)
                 if (response.data.resultCode === 0) {
                     dispatch(getUserData())
                 } else {
                     let message = response.data.messages.length > 0 ? response.data.messages[0]: 'some error'
                     dispatch(stopSubmit('login', {email: message}))
                 }
-            })
     }
 }
 
 export const logout = (): ThunkType => {
-    return (dispatch) => {
-        authAPI.logout().then(response => {
+    return async (dispatch) => {
+       let response = await authAPI.logout()
             if (response.data.resultCode === 0) {
                 dispatch(setUserData('', '', '', false))
             }
-        })
     }
 }
 

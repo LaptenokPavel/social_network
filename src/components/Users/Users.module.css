@@ -3,6 +3,23 @@
     height: 100px;
 }
 
+
+
 .selectedPage{
 font-weight: bold;
+    border: 1px solid grey;
+    padding: 3px;
+    background-color: chocolate;
+}
+
+.pages{
+    border: 1px solid grey;
+    padding: 3px;
+    background-color: black;
+    color: white;
+}
+
+.paginator{
+   display: flex;
+
 }

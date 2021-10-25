@@ -37,7 +37,7 @@ export type ProfileType = {
 
 }
 
-export type ProfileActionsTypes = addPost | setUserProfile | setUserStatus
+export type ProfileActionsTypes = addPost | setUserProfile | setUserStatus | setPhotoSuccess
 
 
 export const unitialStateProfilePage: ProfilePageType = {
@@ -72,6 +72,11 @@ const profileReducer = (state: ProfilePageType = unitialStateProfilePage, action
                 ...state,
                 status: action.status
             }
+        case 'SET-PHOTO-SUCCESS':
+            return {
+                ...state,
+                profile: {...state.profile, photos:action.photos}
+            }
         default:
             return state
     }
@@ -81,6 +86,7 @@ const profileReducer = (state: ProfilePageType = unitialStateProfilePage, action
 export type addPost = ReturnType<typeof addMyPostActionCreator>
 export type setUserProfile = ReturnType<typeof setUserProfile>
 export type setUserStatus = ReturnType<typeof setUserStatus>
+export type setPhotoSuccess = ReturnType<typeof setPhotoSuccess>
 
 export const addMyPostActionCreator = (newPostText: string) => {
     return (
@@ -104,6 +110,14 @@ export const setUserStatus = (status: string) => {
         {
             type: 'SET-STATUS',
             status: status
+        } as const
+    )
+}
+export const setPhotoSuccess = (photos: any) => {
+    return (
+        {
+            type: 'SET-PHOTO-SUCCESS',
+            photos
         } as const
     )
 }
@@ -132,6 +146,14 @@ export const updateUserStatus = (status: string) => {
                 dispatch(setUserStatus(status))
         })
     )
+}
+
+export const savePhoto = (file: any) => {
+    return async (dispatch: any) => {
+        let response = await profileAPI.savePhoto(file)
+        if (response.data.resultCode === 0)
+            dispatch(setPhotoSuccess(response.data.data.photos))
+    }
 }
 
 export default profileReducer;

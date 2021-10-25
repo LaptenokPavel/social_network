@@ -23,6 +23,7 @@ type LoginTypeAction = {
 
 type LoginTypeState = {
     isAuth: boolean
+    captchaUrl: string
 }
 
 type LoginType = LoginTypeAction & LoginTypeState
@@ -79,7 +80,8 @@ const Login = (props: LoginType) => {
 }
 
 const mapStateToProps = (state: AppStateType) => ({
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captchaUrl: state.auth.captchaUrl
 })
 
 export default connect(mapStateToProps, {login})(Login)
